@@ -85,12 +85,40 @@ df["GarageYrBlt"].replace(df["GarageYrBlt"].max(),2007,inplace=True)
 
 def grab_col_names(dataframe, cat_th=10, car_th=20):
     """
-    grab_col_names for given dataframe
 
-    :param dataframe:
-    :param cat_th:
-    :param car_th:
-    :return:
+    It gives the names of categorical, numerical and categorical but cardinal variables in the data set.
+    Note: Categorical variables with numerical appearance are also included in categorical variables.
+
+    Parameters
+    ------
+        dataframe: dataframe
+                The dataframe from which variable names are to be retrieved
+        cat_th: int, optional
+                class threshold for numeric but categorical variables
+        car_th: int, optional
+                class threshold for categorical but cardinal variables
+
+    Returns
+    ------
+        cat_cols: list
+                Categorical variable list
+        num_cols: list
+                Numeric variable list
+        cat_but_car: list
+                Categorical view cardinal variable list
+
+    Examples
+    ------
+        import seaborn as sns
+        df = sns.load_dataset("iris")
+        print(grab_col_names(df))
+
+
+    Notes
+    ------
+        cat_cols + num_cols + cat_but_car = total number of variables
+        num_but_cat is inside cat_cols.
+
     """
 
     cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
